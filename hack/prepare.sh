@@ -36,5 +36,5 @@ git mv "cluster/images/provider-jet-template-controller" "cluster/images/provide
 
 # We need to remove this api folder otherwise first `make generate` fails with
 # the following error probably due to some optimizations in go generate with v1.17:
-# generate: open /Users/hasanturken/Workspace/crossplane-contrib/provider-jet-template/apis/null/v1alpha1/zz_generated.deepcopy.go: no such file or directory
+# generate: open /Users/hasanturken/Workspace/joakimhew/provider-jet-template/apis/null/v1alpha1/zz_generated.deepcopy.go: no such file or directory
 rm -rf apis/null

@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: resources.null.template.jet.crossplane.io
+  name: groups.group.googleworkspace.jet.crossplane.io
 spec:
-  group: null.template.jet.crossplane.io
+  group: group.googleworkspace.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
-    - templatejet
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    - googleworkspacejet
+    kind: Group
+    listKind: GroupList
+    plural: groups
+    singular: group
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API
+        description: Group is the Schema for the Groups API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: GroupSpec defines the desired state of Group
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,13 +63,24 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
+                  aliases:
+                    description: asps.list of group's email addresses.
+                    items:
                       type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                    type: array
+                  description:
+                    description: An extended description to help users determine the
+                      purpose of a group.For example, you can include information
+                      about who should join the group,the types of messages to send
+                      to the group, links to FAQs about the group, or related groups.
+                    type: string
+                  email:
+                    description: The group's email address. If your account has multiple
+                      domains,select the appropriate domain for the email address.
+                      The email must be unique.
+                    type: string
+                required:
+                - email
                 type: object
               providerConfigRef:
                 default:
@@ -168,12 +179,22 @@ spec:
             - forProvider
             type: object
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: GroupStatus defines the observed state of Group.
             properties:
               atProvider:
                 properties:
+                  adminCreated:
+                    type: boolean
+                  directMembersCount:
+                    type: number
+                  etag:
+                    type: string
                   id:
                     type: string
+                  nonEditableAliases:
+                    items:
+                      type: string
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.
