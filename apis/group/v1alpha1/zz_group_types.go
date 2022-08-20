@@ -50,6 +50,10 @@ type GroupParameters struct {
 	// The group's email address. If your account has multiple domains,select the appropriate domain for the email address. The email must be unique.
 	// +kubebuilder:validation:Required
 	Email *string `json:"email" tf:"email,omitempty"`
+
+	// The group's display name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 // GroupSpec defines the desired state of Group

@@ -22,6 +22,7 @@ import (
 	"github.com/crossplane/terrajet/pkg/controller"
 
 	group "github.com/joakimhew/provider-jet-googleworkspace/internal/controller/group/group"
+	members "github.com/joakimhew/provider-jet-googleworkspace/internal/controller/group/members"
 	providerconfig "github.com/joakimhew/provider-jet-googleworkspace/internal/controller/providerconfig"
 )
 
@@ -30,6 +31,7 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		group.Setup,
+		members.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

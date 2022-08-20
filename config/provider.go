@@ -24,6 +24,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	"github.com/joakimhew/provider-jet-googleworkspace/config/group"
+	"github.com/joakimhew/provider-jet-googleworkspace/config/members"
 )
 
 const (
@@ -47,11 +48,13 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithDefaultResourceFn(defaultResourceFn),
 		tjconfig.WithIncludeList([]string{
 			"googleworkspace_group$",
+			"googleworkspace_group_members$",
 		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
 		group.Configure,
+		members.Configure,
 	} {
 		configure(pc)
 	}

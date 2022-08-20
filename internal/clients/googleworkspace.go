@@ -37,6 +37,11 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal googleworkspace credentials as JSON"
+
+	keyCredentials           = "credentials"
+	keyCustomerId            = "customer_id"
+	keyOauthScopes           = "oauth_scopes"
+	keyImpersonatedUserEmail = "impersonated_user_email"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -87,6 +92,24 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			"username": googleworkspaceCreds["username"],
 			"password": googleworkspaceCreds["password"],
 		}*/
+
+		ps.Configuration = map[string]interface{}{}
+		if v, ok := googleworkspaceCreds[keyCredentials]; ok {
+			ps.Configuration[keyCredentials] = v
+		}
+		if v, ok := googleworkspaceCreds[keyCustomerId]; ok {
+			ps.Configuration[keyCustomerId] = v
+		}
+		if v, ok := googleworkspaceCreds[keyOauthScopes]; ok {
+			list := []string{}
+			if err := json.Unmarshal([]byte(v), &list); err != nil {
+				return ps, errors.Wrap(err, errUnmarshalCredentials)
+			}
+			ps.Configuration[keyOauthScopes] = list
+		}
+		if v, ok := googleworkspaceCreds[keyImpersonatedUserEmail]; ok {
+			ps.Configuration[keyImpersonatedUserEmail] = v
+		}
 		return ps, nil
 	}
 }

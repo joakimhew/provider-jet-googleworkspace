@@ -1,0 +1,10 @@
+apiVersion: group.googleworkspace.jet.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: example-group-a
+spec:
+  forProvider:
+    email: example-group-a@zeronorth.com
+    name: Example Group B
+  providerConfigRef:
+    name: default

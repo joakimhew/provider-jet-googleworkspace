@@ -4,11 +4,11 @@
 PROJECT_NAME := provider-jet-googleworkspace
 PROJECT_REPO := github.com/joakimhew/$(PROJECT_NAME)
 
-export TERRAFORM_VERSION := 1.1.6
+export TERRAFORM_VERSION := 1.2.7
 
 export TERRAFORM_PROVIDER_SOURCE := hashicorp/googleworkspace
 export TERRAFORM_PROVIDER_VERSION := 0.7.0
-export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-github
+export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-googleworkspace
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/terraform-provider-googleworkspace/0.7.0
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-googleworkspace
 
