@@ -27,6 +27,10 @@ linters-settings:
     # report about shadowed variables
     check-shadowing: false
 
+  golint:
+    # minimal confidence for issues, default is 0.8
+    min-confidence: 0.8
+
   gofmt:
     # simplify code: gofmt with `-s` option, true by default
     simplify: true
@@ -104,16 +108,15 @@ linters:
     - govet
     - gocyclo
     - gocritic
+    - interfacer
     - goconst
     - goimports
     - gofmt  # We enable this as well as goimports for its simplify mode.
     - prealloc
-    - revive
+    - golint
     - unconvert
     - misspell
     - nakedret
-  disable:
-    - scopelint
 
   presets:
     - bugs
@@ -131,6 +134,7 @@ issues:
         - errcheck
         - dupl
         - gosec
+        - scopelint
         - unparam
     
     # Ease some gocritic warnings on test files.
