@@ -51,7 +51,7 @@ GO111MODULE = on
 # ====================================================================================
 # Setup Images
 
-DOCKER_REGISTRY ?= crossplane
+DOCKER_REGISTRY ?= joakimhew
 IMAGES = provider-jet-googleworkspace provider-jet-googleworkspace-controller
 -include build/makelib/image.mk
 

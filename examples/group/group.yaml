@@ -8,3 +8,16 @@ spec:
     name: Example Group B
   providerConfigRef:
     name: default
+---
+apiVersion: group.googleworkspace.jet.crossplane.io/v1alpha1
+kind: Members
+metadata:
+  name: example-group-a-members
+spec:
+  forProvider:
+    groupId: example-group-a@zeronorth.com
+    members:
+      - email: joakim.hansson@zeronorth.com
+        role: OWNER
+  providerConfigRef:
+    name: default

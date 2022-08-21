@@ -70,8 +70,15 @@ type MembersObservation struct {
 type MembersParameters struct {
 
 	// Identifies the group in the API request. The value can be the group's email address, group alias, or the unique group ID.
-	// +kubebuilder:validation:Required
-	GroupID *string `json:"groupId" tf:"group_id,omitempty"`
+	// +crossplane:generate:reference:type=Group
+	// +kubebuilder:validation:Optional
+	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// The members of the group
 	// +kubebuilder:validation:Optional
