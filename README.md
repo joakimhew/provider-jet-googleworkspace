@@ -11,7 +11,7 @@ Install the provider by using the following command after changing the image tag
 to the [latest release](https://github.com/joakimhew/provider-jet-googleworkspace/releases):
 
 ```
-kubectl crossplane install provider crossplane/provider-jet-googleworkspace:v0.1.0
+kubectl crossplane install provider joakimhew/provider-jet-googleworkspace:v0.1.0-alpha
 ```
 
 Alternatively, you can use declarative installation:
@@ -23,6 +23,41 @@ kubectl apply -f examples/install.yaml
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
 You can see the API reference [here](https://doc.crds.dev/github.com/joakimhew/provider-jet-googleworkspace).
+
+Create a secret with the credentials for your Google Workspace account:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-creds
+  namespace: crossplane-system
+type: Opaque
+stringData:
+  credentials: |
+    {
+      "credentials":"<GOOGLE_CREDENTIALS_JSON>",
+      "customer_id":"<CUSTOMER_ID>",
+      "impersonated_user_email":"<IMPERSONATED_USER_EMAIL>",
+      "oauth_scopes": "<LIST_OF_OAUTH_SCOPES>"
+    }
+```
+
+Create a `ProviderConfig` that uses the credentials:
+
+```yaml
+apiVersion: googleworkspace.jet.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: example-creds
+      namespace: crossplane-system
+      key: credentials
+```
 
 ## Developing
 
